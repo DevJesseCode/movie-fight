@@ -33,6 +33,11 @@ figure .image img {
 
 .hero {
 	margin-bottom: 20px;
+	margin-top: -6.6rem;
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+	box-shadow: 0px 2px 5px #000000bb;
 }
 
 .forms {
@@ -55,3 +60,15 @@ figure .image img {
 	margin-right: 10px;
 }
 
+.tutorial {
+	border-radius: 10px;
+	transition-duration: 0.75s;
+}
+
+.hero-body {
+	padding: 1.8rem 3rem;
+}
+
+.columns {
+	margin-top: 6.6rem;
+}

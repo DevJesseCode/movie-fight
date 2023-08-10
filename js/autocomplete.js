@@ -1,9 +1,9 @@
-const create_autocomplete = ({ root, renderOption }) => {
+const create_autocomplete = ({ root, renderOption, input_value, fetchData, onSelect, labelInfo }) => {
 	root.innerHTML = `
-<label for="input">
-<strong>Search for a movie:</strong>
+<label for="${labelInfo}-input">
+<strong>Search:</strong>
 </label>
-<input type="text" class="input" id="input"/>
+<input type="text" class="input" id="${labelInfo}-input"/>
 <br>
 <div class="dropdown">
 <div class="dropdown-menu">
@@ -17,30 +17,25 @@ const create_autocomplete = ({ root, renderOption }) => {
 	const dropdown = root.querySelector(".dropdown");
 	const results_container = root.querySelector(".results");
 	let user_clicked = false;
-	let timeout_id;
 	const on_input = async (event) => {
-		let movies = await fetchData(event.target.value);
-		movies = movies.Search;
+		const options = await fetchData(event.target.value);
 		results_container.innerHTML = "";
-		if (!movies.length) {
+		if (!options.length) {
 			dropdown.classList.remove("is-active");
 			return;
 		}
 		dropdown.classList.add("is-active");
-		for (const movie of movies) {
-			const option = document.createElement("div");
-			option.innerHTML = renderOption(movie);
-			option.addEventListener("click", (event) => {
+		for (const option of options) {
+			const div = document.createElement("div");
+			div.innerHTML = renderOption(option);
+			div.addEventListener("click", () => {
 				dropdown.classList.remove("is-active");
 				user_clicked = true;
-				input.value =
-					event.target.tagName !== "DIV"
-						? event.target.parentElement.children[1].textContent
-						: event.target.children[1].textContent;
-				on_select(movie);
+				input.value = input_value(option);
+				onSelect(option);
 			});
-			option.classList.add("dropdown-item");
-			results_container.appendChild(option);
+			div.classList.add("dropdown-item");
+			results_container.appendChild(div);
 		}
 	};
 
