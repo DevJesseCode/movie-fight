@@ -67,7 +67,7 @@ const movie_template = (movie_object) => {
 		</figure>
 		<div class="media-content">
 			<div class="content">
-				<h1>${movie_object.Title}</h1>
+				<h1>${movie_object.Title} (${movie_object.Year})</h1>
 				<h4>${movie_object.Genre}</h4>
 				<p>${movie_object.Plot}</p>
 			</div>
